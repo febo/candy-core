@@ -3,8 +3,8 @@
   "version": "0.0.1",
   "programVersion": "0.0.1",
   "description": "MPL Candy Machine Core JavaScript API. This MPL package is for the current generation of the Candy Machine Core (a.k.a. Candy Machine V3).",
-  "main": "dist/src/mpl-candy-machine-core.js",
-  "types": "dist/src/mpl-candy-machine-core.d.ts",
+  "main": "src/mpl-candy-machine-core.js",
+  "types": "src/mpl-candy-machine-core.d.ts",
   "scripts": {
     "check:publish-ready": "yarn build && yarn test",
     "preversion": "yarn check:publish-ready",
@@ -12,7 +12,7 @@
     "prepublishOnly": "yarn check:publish-ready",
     "postpublish": "git push origin && git push origin --tags",
     "build:docs": "typedoc",
-    "build": "rimraf dist && tsc -p tsconfig.json",
+    "build": "rimraf dist && tsc -p tsconfzig.json",
     "pretest": "yarn build && yarn amman:start",
     "test": "tape dist/test/*.js",
     "posttest": "yarn build && yarn amman:stop",
@@ -25,8 +25,11 @@
     "fix:prettier": "prettier --write src/",
     "fix": "yarn fix:lint && yarn fix:prettier"
   },
+  "directories": {
+    "dist": "./src/"
+  },
   "files": [
-    "/dist"
+    "src/**/*"
   ],
   "publishConfig": {
     "access": "public",
