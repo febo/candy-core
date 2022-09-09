@@ -31,9 +31,7 @@ exports.updateStruct = new beet.FixableBeetArgsStruct([
     ['instructionDiscriminator', beet.uniformFixedSizeArray(beet.u8, 8)],
     ['data', CandyMachineData_1.candyMachineDataBeet],
 ], 'UpdateInstructionArgs');
-exports.updateInstructionDiscriminator = [
-    219, 200, 88, 176, 158, 63, 253, 127,
-];
+exports.updateInstructionDiscriminator = [219, 200, 88, 176, 158, 63, 253, 127];
 function createUpdateInstruction(accounts, args, programId = new web3.PublicKey('cndy3CZK71ZHMp9ddpq5NVvQDx33o6cCYDf4JBAWCk7')) {
     const [data] = exports.updateStruct.serialize({
         instructionDiscriminator: exports.updateInstructionDiscriminator,
@@ -49,11 +47,6 @@ function createUpdateInstruction(accounts, args, programId = new web3.PublicKey(
             pubkey: accounts.authority,
             isWritable: false,
             isSigner: true,
-        },
-        {
-            pubkey: accounts.wallet,
-            isWritable: false,
-            isSigner: false,
         },
     ];
     const ix = new web3.TransactionInstruction({

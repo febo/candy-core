@@ -21,7 +21,9 @@ __exportStar(require("./errors"), exports);
 const web3_js_1 = require("@solana/web3.js");
 const constants_1 = require("./constants");
 async function getCandyMachinePDA(programId, base) {
-    return await web3_js_1.PublicKey.findProgramAddress([Buffer.from('candy_machine'), base.publicKey.toBuffer()], programId).then(result => { return result[0]; });
+    return await web3_js_1.PublicKey.findProgramAddress([Buffer.from('candy_machine'), base.publicKey.toBuffer()], programId).then((result) => {
+        return result[0];
+    });
 }
 exports.getCandyMachinePDA = getCandyMachinePDA;
 function getCandyMachineSpace(data) {
@@ -30,13 +32,13 @@ function getCandyMachineSpace(data) {
     }
     else {
         const items = parseInt(data.itemsAvailable.toString());
-        return constants_1.HIDDEN_SECTION
-            + 4
-            + items * (data.configLineSettings.nameLength + data.configLineSettings.uriLength)
-            + 4
-            + (Math.floor(items / 8) + 1)
-            + 4
-            + items * 4;
+        return (constants_1.HIDDEN_SECTION +
+            4 +
+            items * (data.configLineSettings.nameLength + data.configLineSettings.uriLength) +
+            4 +
+            (Math.floor(items / 8) + 1) +
+            4 +
+            items * 4);
     }
 }
 exports.getCandyMachineSpace = getCandyMachineSpace;

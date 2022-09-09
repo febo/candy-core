@@ -28,16 +28,15 @@ const amman_client_1 = require("@metaplex-foundation/amman-client");
 const web3_js_1 = require("@solana/web3.js");
 const spl_token_1 = require("@solana/spl-token");
 const program = __importStar(require("../../src/generated"));
+const generated_1 = require("../../src/generated");
 const _1 = require(".");
 const utils_1 = require("../utils");
-const generated_1 = require("../../src/generated");
-const METAPLEX_PROGRAM_ID = new web3_js_1.PublicKey("metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s");
+const js_1 = require("@metaplex-foundation/js");
+const METAPLEX_PROGRAM_ID = new web3_js_1.PublicKey('metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s');
 class InitTransactions {
     constructor(resuseKeypairs = false) {
         this.resuseKeypairs = resuseKeypairs;
-        this.getKeypair = resuseKeypairs
-            ? _1.amman.loadOrGenKeypair
-            : _1.amman.genLabeledKeypair;
+        this.getKeypair = resuseKeypairs ? _1.amman.loadOrGenKeypair : _1.amman.genLabeledKeypair;
     }
     async payer() {
         const [payer, payerPair] = await this.getKeypair('Payer');
@@ -76,13 +75,36 @@ class InitTransactions {
         };
     }
     async create(t, payer, data, handler, connection) {
-        const [_, candyMachine] = await this.getKeypair('Candy Machine Account');
+        const metaplex = js_1.Metaplex.make(connection).use((0, js_1.keypairIdentity)(payer));
+        const { nft: collection } = await metaplex
+            .nfts()
+            .create({
+            uri: utils_1.COLLECTION_METADATA,
+            name: 'CORE Collection',
+            sellerFeeBasisPoints: 500,
+        })
+            .run();
+        const [, candyMachine] = await this.getKeypair('Candy Machine Account');
+        const authorityPda = (0, js_1.findCandyMachineCreatorPda)(candyMachine.publicKey, program.PROGRAM_ID);
+        await _1.amman.addr.addLabel('Collection Mint', collection.address);
+        const collectionAuthorityRecord = (0, js_1.findCollectionAuthorityRecordPda)(collection.mint.address, authorityPda);
+        await _1.amman.addr.addLabel('Collection Authority Record', collectionAuthorityRecord);
+        const collectionMetadata = (0, js_1.findMetadataPda)(collection.mint.address);
+        await _1.amman.addr.addLabel('Collection Metadata', collectionMetadata);
+        const collectionMasterEdition = (0, js_1.findMasterEditionV2Pda)(collection.mint.address);
+        await _1.amman.addr.addLabel('Collection Master Edition', collectionMasterEdition);
         const accounts = {
+            authorityPda,
+            collectionUpdateAuthority: collection.updateAuthorityAddress,
+            mintAuthority: payer.publicKey,
             candyMachine: candyMachine.publicKey,
-            wallet: payer.publicKey,
             authority: payer.publicKey,
-            updateAuthority: payer.publicKey,
             payer: payer.publicKey,
+            collectionMetadata,
+            collectionMint: collection.address,
+            collectionMasterEdition,
+            collectionAuthorityRecord,
+            tokenMetadataProgram: METAPLEX_PROGRAM_ID,
             systemProgram: web3_js_1.SystemProgram.programId,
             rent: web3_js_1.SYSVAR_RENT_PUBKEY,
         };
@@ -98,11 +120,10 @@ class InitTransactions {
             programId: program.PROGRAM_ID,
         });
         const tx = new web3_js_1.Transaction().add(ixCreateAccount).add(ixInitialize);
-        const txPromise = handler
-            .sendAndConfirmTransaction(tx, [candyMachine, payer], 'tx: Initialize');
+        const txPromise = handler.sendAndConfirmTransaction(tx, [candyMachine, payer], 'tx: Initialize');
         return { tx: txPromise, candyMachine: candyMachine.publicKey };
     }
-    async addConfigLines(t, candyMachine, payer, lines, handler) {
+    async addConfigLines(t, candyMachine, payer, lines) {
         const accounts = {
             candyMachine: candyMachine,
             authority: payer.publicKey,
@@ -113,7 +134,7 @@ class InitTransactions {
             const limit = Math.min(lines.length - start, 10);
             const args = {
                 configLines: lines.slice(start, start + limit),
-                index: start
+                index: start,
             };
             const ix = program.createAddConfigLinesInstruction(accounts, args);
             txs.push(new web3_js_1.Transaction().add(ix));
@@ -121,14 +142,13 @@ class InitTransactions {
         }
         return { txs };
     }
-    async updateCandyMachine(t, candyMachine, wallet, payer, data, handler) {
+    async updateCandyMachine(t, candyMachine, payer, data, handler) {
         const accounts = {
             candyMachine: candyMachine,
             authority: payer.publicKey,
-            wallet: wallet
         };
         const args = {
-            data: data
+            data: data,
         };
         const ix = program.createUpdateInstruction(accounts, args);
         const tx = new web3_js_1.Transaction().add(ix);
@@ -136,64 +156,54 @@ class InitTransactions {
     }
     async mint(t, candyMachine, payer, handler, connection) {
         const candyMachineObject = await generated_1.CandyMachine.fromAccountAddress(connection, candyMachine);
-        const [mint, mintPair] = await this.getKeypair('mint');
-        _1.amman.addr.addLabel('Mint', mint);
-        const [candyMachineCreator, bump] = await web3_js_1.PublicKey.findProgramAddress([Buffer.from('candy_machine'), candyMachine.toBuffer()], program.PROGRAM_ID);
-        _1.amman.addr.addLabel('Mint Creator', candyMachineCreator);
-        const [associatedToken,] = await web3_js_1.PublicKey.findProgramAddress([payer.publicKey.toBuffer(), spl_token_1.TOKEN_PROGRAM_ID.toBuffer(), mint.toBuffer()], spl_token_1.ASSOCIATED_TOKEN_PROGRAM_ID);
-        _1.amman.addr.addLabel('Mint Associated Token', associatedToken);
-        const [metadataAddress,] = await web3_js_1.PublicKey.findProgramAddress([
-            Buffer.from('metadata'),
-            METAPLEX_PROGRAM_ID.toBuffer(),
-            mint.toBuffer(),
-        ], METAPLEX_PROGRAM_ID);
-        _1.amman.addr.addLabel('Mint Metadata', metadataAddress);
-        const [masterEdition,] = await web3_js_1.PublicKey.findProgramAddress([
-            Buffer.from('metadata'),
-            METAPLEX_PROGRAM_ID.toBuffer(),
-            mint.toBuffer(),
-            Buffer.from('edition'),
-        ], METAPLEX_PROGRAM_ID);
-        _1.amman.addr.addLabel('Mint Master Edition', masterEdition);
+        const [nftMint, mintPair] = await this.getKeypair('mint');
+        await _1.amman.addr.addLabel('NFT Mint', nftMint);
+        const nftMetadata = (0, js_1.findMetadataPda)(nftMint);
+        const nftMasterEdition = (0, js_1.findMasterEditionV2Pda)(nftMint);
+        const nftTokenAccount = (0, js_1.findAssociatedTokenAccountPda)(nftMint, payer.publicKey);
+        const collectionMint = candyMachineObject.collectionMint;
+        const metaplex = js_1.Metaplex.make(connection).use((0, js_1.keypairIdentity)(payer));
+        const collection = await metaplex.nfts().findByMint({ mintAddress: collectionMint }).run();
+        const authorityPda = (0, js_1.findCandyMachineCreatorPda)(candyMachine, program.PROGRAM_ID);
+        const collectionAuthorityRecord = (0, js_1.findCollectionAuthorityRecordPda)(collectionMint, authorityPda);
+        const collectionMetadata = (0, js_1.findMetadataPda)(collectionMint);
+        const collectionMasterEdition = (0, js_1.findMasterEditionV2Pda)(collectionMint);
         const accounts = {
             candyMachine: candyMachine,
-            authority: candyMachineObject.authority,
-            updateAuthority: candyMachineObject.updateAuthority,
-            candyMachineCreator: candyMachineCreator,
-            masterEdition: masterEdition,
-            metadata: metadataAddress,
-            mint: mint,
-            mintAuthority: payer.publicKey,
-            mintUpdateAuthority: payer.publicKey,
+            authorityPda,
+            mintAuthority: candyMachineObject.mintAuthority,
             payer: payer.publicKey,
+            nftMint,
+            nftMintAuthority: payer.publicKey,
+            nftMetadata,
+            nftMasterEdition,
+            collectionAuthorityRecord,
+            collectionMint,
+            collectionUpdateAuthority: collection.updateAuthorityAddress,
+            collectionMetadata,
+            collectionMasterEdition,
             tokenMetadataProgram: METAPLEX_PROGRAM_ID,
-            tokenProgram: spl_token_1.TOKEN_PROGRAM_ID,
-            systemProgram: web3_js_1.SystemProgram.programId,
-            rent: web3_js_1.SYSVAR_RENT_PUBKEY,
-            recentSlothashes: web3_js_1.SYSVAR_SLOT_HASHES_PUBKEY
-        };
-        const args = {
-            creatorBump: bump
+            recentSlothashes: web3_js_1.SYSVAR_SLOT_HASHES_PUBKEY,
         };
         const ixs = [];
         ixs.push(web3_js_1.SystemProgram.createAccount({
             fromPubkey: payer.publicKey,
-            newAccountPubkey: mint,
+            newAccountPubkey: nftMint,
             lamports: await connection.getMinimumBalanceForRentExemption(spl_token_1.MintLayout.span),
             space: spl_token_1.MintLayout.span,
             programId: spl_token_1.TOKEN_PROGRAM_ID,
         }));
-        ixs.push((0, spl_token_1.createInitializeMintInstruction)(mint, 0, payer.publicKey, payer.publicKey));
-        ixs.push((0, spl_token_1.createAssociatedTokenAccountInstruction)(payer.publicKey, associatedToken, payer.publicKey, mint));
-        ixs.push((0, spl_token_1.createMintToInstruction)(mint, associatedToken, payer.publicKey, 1, []));
-        ixs.push(program.createMintInstruction(accounts, args));
+        ixs.push((0, spl_token_1.createInitializeMintInstruction)(nftMint, 0, payer.publicKey, payer.publicKey));
+        ixs.push((0, spl_token_1.createAssociatedTokenAccountInstruction)(payer.publicKey, nftTokenAccount, payer.publicKey, nftMint));
+        ixs.push((0, spl_token_1.createMintToInstruction)(nftMint, nftTokenAccount, payer.publicKey, 1, []));
+        ixs.push(program.createMintInstruction(accounts));
         const tx = new web3_js_1.Transaction().add(...ixs);
         return { tx: handler.sendAndConfirmTransaction(tx, [payer, mintPair], 'tx: Mint') };
     }
     async withdraw(t, candyMachine, payer, handler) {
         const accounts = {
             candyMachine: candyMachine,
-            authority: payer.publicKey
+            authority: payer.publicKey,
         };
         const ix = program.createWithdrawInstruction(accounts);
         const tx = new web3_js_1.Transaction().add(ix);

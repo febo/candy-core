@@ -8,7 +8,6 @@ export declare type CandyMachineData = {
     sellerFeeBasisPoints: number;
     maxSupply: beet.bignum;
     isMutable: boolean;
-    retainAuthority: boolean;
     creators: Creator[];
     configLineSettings: beet.COption<ConfigLineSettings>;
     hiddenSettings: beet.COption<HiddenSettings>;

@@ -4,7 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const tape_1 = __importDefault(require("tape"));
-const setup_1 = require("./setup/");
+const setup_1 = require("./setup");
 const init = new setup_1.InitTransactions();
 (0, setup_1.killStuckProcess)();
 (0, tape_1.default)('withdraw', async (t) => {
@@ -16,20 +16,21 @@ const init = new setup_1.InitTransactions();
         sellerFeeBasisPoints: 500,
         maxSupply: 0,
         isMutable: true,
-        retainAuthority: true,
-        creators: [{
+        creators: [
+            {
                 address: payerPair.publicKey,
                 verified: false,
-                percentageShare: 100
-            }],
+                percentageShare: 100,
+            },
+        ],
         configLineSettings: {
             prefixName: 'TEST ',
             nameLength: 10,
             prefixUri: 'https://arweave.net/',
             uriLength: 50,
-            isSequential: false
+            isSequential: false,
         },
-        hiddenSettings: null
+        hiddenSettings: null,
     };
     const { tx: transaction, candyMachine: address } = await init.create(t, payerPair, data, fstTxHandler, connection);
     await transaction.assertSuccess(t);

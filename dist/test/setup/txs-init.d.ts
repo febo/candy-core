@@ -29,10 +29,10 @@ export declare class InitTransactions {
         tx: ConfirmedTransactionAssertablePromise;
         candyMachine: PublicKey;
     }>;
-    addConfigLines(t: Test, candyMachine: PublicKey, payer: Keypair, lines: program.ConfigLine[], handler: PayerTransactionHandler): Promise<{
+    addConfigLines(t: Test, candyMachine: PublicKey, payer: Keypair, lines: program.ConfigLine[]): Promise<{
         txs: Transaction[];
     }>;
-    updateCandyMachine(t: Test, candyMachine: PublicKey, wallet: PublicKey, payer: Keypair, data: CandyMachineData, handler: PayerTransactionHandler): Promise<{
+    updateCandyMachine(t: Test, candyMachine: PublicKey, payer: Keypair, data: CandyMachineData, handler: PayerTransactionHandler): Promise<{
         tx: ConfirmedTransactionAssertablePromise;
     }>;
     mint(t: Test, candyMachine: PublicKey, payer: Keypair, handler: PayerTransactionHandler, connection: Connection): Promise<{

@@ -9,10 +9,16 @@ export declare const initializeStruct: beet.FixableBeetArgsStruct<InitializeInst
 }>;
 export declare type InitializeInstructionAccounts = {
     candyMachine: web3.PublicKey;
-    wallet: web3.PublicKey;
+    authorityPda: web3.PublicKey;
     authority: web3.PublicKey;
-    updateAuthority: web3.PublicKey;
+    mintAuthority: web3.PublicKey;
     payer: web3.PublicKey;
+    collectionMetadata: web3.PublicKey;
+    collectionMint: web3.PublicKey;
+    collectionMasterEdition: web3.PublicKey;
+    collectionUpdateAuthority: web3.PublicKey;
+    collectionAuthorityRecord: web3.PublicKey;
+    tokenMetadataProgram: web3.PublicKey;
     systemProgram?: web3.PublicKey;
     rent?: web3.PublicKey;
 };

@@ -19,36 +19,35 @@ const init = new setup_1.InitTransactions();
         sellerFeeBasisPoints: 500,
         maxSupply: 0,
         isMutable: true,
-        retainAuthority: true,
-        creators: [{
+        creators: [
+            {
                 address: payerPair.publicKey,
                 verified: false,
-                percentageShare: 100
-            }],
+                percentageShare: 100,
+            },
+        ],
         configLineSettings: {
             prefixName: 'TEST ',
             nameLength: 10,
             prefixUri: 'https://arweave.net/',
             uriLength: 50,
-            isSequential: false
+            isSequential: false,
         },
-        hiddenSettings: null
+        hiddenSettings: null,
     };
     const { tx: transaction, candyMachine: address } = await init.create(t, payerPair, data, fstTxHandler, connection);
     await transaction.assertSuccess(t);
     const candyMachine = await generated_1.CandyMachine.fromAccountAddress(connection, address);
     (0, spok_1.default)(t, candyMachine, {
         authority: (0, utils_1.spokSamePubkey)(payerPair.publicKey),
-        updateAuthority: (0, utils_1.spokSamePubkey)(payerPair.publicKey),
         itemsRedeemed: (0, utils_1.spokSameBignum)(0),
         data: {
             itemsAvailable: (0, utils_1.spokSameBignum)(items),
             maxSupply: (0, utils_1.spokSameBignum)(0),
             isMutable: true,
-            retainAuthority: true,
             creators: data.creators,
-            configLineSettings: data.configLineSettings
-        }
+            configLineSettings: data.configLineSettings,
+        },
     });
     t.notOk(candyMachine.data.hiddenSettings, 'hidden settings should be null');
 });
@@ -61,36 +60,34 @@ const init = new setup_1.InitTransactions();
         sellerFeeBasisPoints: 500,
         maxSupply: 0,
         isMutable: true,
-        retainAuthority: true,
-        creators: [{
+        creators: [
+            {
                 address: payerPair.publicKey,
                 verified: false,
-                percentageShare: 100
-            }],
+                percentageShare: 100,
+            },
+        ],
         configLineSettings: null,
         hiddenSettings: {
             name: 'Hidden NFT',
             uri: 'https://arweave.net/uJSdJIsz_tYTcjUEWdeVSj0aR90K-hjDauATWZSi-tQ',
-            hash: Buffer.from('74bac30d82a0baa41dd2bee4b41bbc36').toJSON().data
-        }
+            hash: Buffer.from('74bac30d82a0baa41dd2bee4b41bbc36').toJSON().data,
+        },
     };
     const { tx: transaction, candyMachine: address } = await init.create(t, payerPair, data, fstTxHandler, connection);
     await transaction.assertSuccess(t);
     const candyMachine = await generated_1.CandyMachine.fromAccountAddress(connection, address);
     (0, spok_1.default)(t, candyMachine, {
         authority: (0, utils_1.spokSamePubkey)(payerPair.publicKey),
-        updateAuthority: (0, utils_1.spokSamePubkey)(payerPair.publicKey),
         itemsRedeemed: (0, utils_1.spokSameBignum)(0),
         data: {
             itemsAvailable: (0, utils_1.spokSameBignum)(items),
             maxSupply: (0, utils_1.spokSameBignum)(0),
             isMutable: true,
-            retainAuthority: true,
             creators: data.creators,
-            hiddenSettings: data.hiddenSettings
-        }
+            hiddenSettings: data.hiddenSettings,
+        },
     });
-    ;
     t.notOk(candyMachine.data.configLineSettings, 'config lines settings should be null');
 });
 //# sourceMappingURL=01-initialize.js.map

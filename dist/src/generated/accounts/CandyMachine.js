@@ -30,17 +30,16 @@ const beetSolana = __importStar(require("@metaplex-foundation/beet-solana"));
 const CandyMachineData_1 = require("../types/CandyMachineData");
 exports.candyMachineDiscriminator = [51, 173, 177, 113, 25, 241, 109, 189];
 class CandyMachine {
-    constructor(features, wallet, authority, updateAuthority, collectionMint, itemsRedeemed, data) {
+    constructor(features, authority, mintAuthority, collectionMint, itemsRedeemed, data) {
         this.features = features;
-        this.wallet = wallet;
         this.authority = authority;
-        this.updateAuthority = updateAuthority;
+        this.mintAuthority = mintAuthority;
         this.collectionMint = collectionMint;
         this.itemsRedeemed = itemsRedeemed;
         this.data = data;
     }
     static fromArgs(args) {
-        return new CandyMachine(args.features, args.wallet, args.authority, args.updateAuthority, args.collectionMint, args.itemsRedeemed, args.data);
+        return new CandyMachine(args.features, args.authority, args.mintAuthority, args.collectionMint, args.itemsRedeemed, args.data);
     }
     static fromAccountInfo(accountInfo, offset = 0) {
         return CandyMachine.deserialize(accountInfo.data, offset);
@@ -88,10 +87,9 @@ class CandyMachine {
                 }
                 return x;
             })(),
-            wallet: this.wallet.toBase58(),
             authority: this.authority.toBase58(),
-            updateAuthority: this.updateAuthority.toBase58(),
-            collectionMint: this.collectionMint,
+            mintAuthority: this.mintAuthority.toBase58(),
+            collectionMint: this.collectionMint.toBase58(),
             itemsRedeemed: (() => {
                 const x = this.itemsRedeemed;
                 if (typeof x.toNumber === 'function') {
@@ -112,10 +110,9 @@ exports.CandyMachine = CandyMachine;
 exports.candyMachineBeet = new beet.FixableBeetStruct([
     ['accountDiscriminator', beet.uniformFixedSizeArray(beet.u8, 8)],
     ['features', beet.u64],
-    ['wallet', beetSolana.publicKey],
     ['authority', beetSolana.publicKey],
-    ['updateAuthority', beetSolana.publicKey],
-    ['collectionMint', beet.coption(beetSolana.publicKey)],
+    ['mintAuthority', beetSolana.publicKey],
+    ['collectionMint', beetSolana.publicKey],
     ['itemsRedeemed', beet.u64],
     ['data', CandyMachineData_1.candyMachineDataBeet],
 ], CandyMachine.fromArgs, 'CandyMachine');

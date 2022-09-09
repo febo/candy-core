@@ -31,9 +31,7 @@ exports.initializeStruct = new beet.FixableBeetArgsStruct([
     ['instructionDiscriminator', beet.uniformFixedSizeArray(beet.u8, 8)],
     ['data', CandyMachineData_1.candyMachineDataBeet],
 ], 'InitializeInstructionArgs');
-exports.initializeInstructionDiscriminator = [
-    175, 175, 109, 31, 13, 152, 155, 237,
-];
+exports.initializeInstructionDiscriminator = [175, 175, 109, 31, 13, 152, 155, 237];
 function createInitializeInstruction(accounts, args, programId = new web3.PublicKey('cndy3CZK71ZHMp9ddpq5NVvQDx33o6cCYDf4JBAWCk7')) {
     var _a, _b;
     const [data] = exports.initializeStruct.serialize({
@@ -47,8 +45,8 @@ function createInitializeInstruction(accounts, args, programId = new web3.Public
             isSigner: false,
         },
         {
-            pubkey: accounts.wallet,
-            isWritable: false,
+            pubkey: accounts.authorityPda,
+            isWritable: true,
             isSigner: false,
         },
         {
@@ -57,7 +55,7 @@ function createInitializeInstruction(accounts, args, programId = new web3.Public
             isSigner: false,
         },
         {
-            pubkey: accounts.updateAuthority,
+            pubkey: accounts.mintAuthority,
             isWritable: false,
             isSigner: false,
         },
@@ -65,6 +63,36 @@ function createInitializeInstruction(accounts, args, programId = new web3.Public
             pubkey: accounts.payer,
             isWritable: false,
             isSigner: true,
+        },
+        {
+            pubkey: accounts.collectionMetadata,
+            isWritable: false,
+            isSigner: false,
+        },
+        {
+            pubkey: accounts.collectionMint,
+            isWritable: false,
+            isSigner: false,
+        },
+        {
+            pubkey: accounts.collectionMasterEdition,
+            isWritable: false,
+            isSigner: false,
+        },
+        {
+            pubkey: accounts.collectionUpdateAuthority,
+            isWritable: false,
+            isSigner: true,
+        },
+        {
+            pubkey: accounts.collectionAuthorityRecord,
+            isWritable: true,
+            isSigner: false,
+        },
+        {
+            pubkey: accounts.tokenMetadataProgram,
+            isWritable: false,
+            isSigner: false,
         },
         {
             pubkey: (_a = accounts.systemProgram) !== null && _a !== void 0 ? _a : web3.SystemProgram.programId,

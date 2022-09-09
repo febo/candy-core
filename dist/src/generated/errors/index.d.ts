@@ -67,11 +67,6 @@ export declare class NoChangingCollectionDuringMintError extends Error {
     readonly name: string;
     constructor();
 }
-export declare class CandyCollectionRequiresRetainAuthorityError extends Error {
-    readonly code: number;
-    readonly name: string;
-    constructor();
-}
 export declare class ExceededLengthErrorError extends Error {
     readonly code: number;
     readonly name: string;
@@ -98,11 +93,6 @@ export declare class CannotChangeSequentialIndexGenerationError extends Error {
     constructor();
 }
 export declare class CollectionKeyMismatchError extends Error {
-    readonly code: number;
-    readonly name: string;
-    constructor();
-}
-export declare class MissingCollectionAccountsError extends Error {
     readonly code: number;
     readonly name: string;
     constructor();

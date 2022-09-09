@@ -27,9 +27,7 @@ exports.createWithdrawInstruction = exports.withdrawInstructionDiscriminator = e
 const beet = __importStar(require("@metaplex-foundation/beet"));
 const web3 = __importStar(require("@solana/web3.js"));
 exports.withdrawStruct = new beet.BeetArgsStruct([['instructionDiscriminator', beet.uniformFixedSizeArray(beet.u8, 8)]], 'WithdrawInstructionArgs');
-exports.withdrawInstructionDiscriminator = [
-    183, 18, 70, 156, 148, 109, 161, 34,
-];
+exports.withdrawInstructionDiscriminator = [183, 18, 70, 156, 148, 109, 161, 34];
 function createWithdrawInstruction(accounts, programId = new web3.PublicKey('cndy3CZK71ZHMp9ddpq5NVvQDx33o6cCYDf4JBAWCk7')) {
     const [data] = exports.withdrawStruct.serialize({
         instructionDiscriminator: exports.withdrawInstructionDiscriminator,
@@ -42,7 +40,7 @@ function createWithdrawInstruction(accounts, programId = new web3.PublicKey('cnd
         },
         {
             pubkey: accounts.authority,
-            isWritable: false,
+            isWritable: true,
             isSigner: true,
         },
     ];

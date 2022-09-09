@@ -34,7 +34,6 @@ exports.candyMachineDataBeet = new beet.FixableBeetArgsStruct([
     ['sellerFeeBasisPoints', beet.u16],
     ['maxSupply', beet.u64],
     ['isMutable', beet.bool],
-    ['retainAuthority', beet.bool],
     ['creators', beet.array(Creator_1.creatorBeet)],
     ['configLineSettings', beet.coption(ConfigLineSettings_1.configLineSettingsBeet)],
     ['hiddenSettings', beet.coption(HiddenSettings_1.hiddenSettingsBeet)],

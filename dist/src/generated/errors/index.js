@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.errorFromName = exports.errorFromCode = exports.CannotChangeUpdateAuthorityError = exports.MissingCollectionAccountsError = exports.CollectionKeyMismatchError = exports.CannotChangeSequentialIndexGenerationError = exports.CannotSwitchFromHiddenSettingsError = exports.CannotIncreaseLengthError = exports.MissingConfigLinesSettingsError = exports.ExceededLengthErrorError = exports.CandyCollectionRequiresRetainAuthorityError = exports.NoChangingCollectionDuringMintError = exports.MetadataAccountMustBeEmptyError = exports.IncorrectCollectionAuthorityError = exports.CannotSwitchToHiddenSettingsError = exports.CannotChangeNumberOfLinesError = exports.HiddenSettingsDoNotHaveConfigLinesError = exports.CandyMachineEmptyError = exports.TooManyCreatorsError = exports.NumericalOverflowErrorError = exports.IndexGreaterThanLengthError = exports.MintMismatchError = exports.UninitializedError = exports.IncorrectOwnerError = void 0;
+exports.errorFromName = exports.errorFromCode = exports.CannotChangeUpdateAuthorityError = exports.CollectionKeyMismatchError = exports.CannotChangeSequentialIndexGenerationError = exports.CannotSwitchFromHiddenSettingsError = exports.CannotIncreaseLengthError = exports.MissingConfigLinesSettingsError = exports.ExceededLengthErrorError = exports.NoChangingCollectionDuringMintError = exports.MetadataAccountMustBeEmptyError = exports.IncorrectCollectionAuthorityError = exports.CannotSwitchToHiddenSettingsError = exports.CannotChangeNumberOfLinesError = exports.HiddenSettingsDoNotHaveConfigLinesError = exports.CandyMachineEmptyError = exports.TooManyCreatorsError = exports.NumericalOverflowErrorError = exports.IndexGreaterThanLengthError = exports.MintMismatchError = exports.UninitializedError = exports.IncorrectOwnerError = void 0;
 const createErrorFromCodeLookup = new Map();
 const createErrorFromNameLookup = new Map();
 class IncorrectOwnerError extends Error {
@@ -172,23 +172,10 @@ class NoChangingCollectionDuringMintError extends Error {
 exports.NoChangingCollectionDuringMintError = NoChangingCollectionDuringMintError;
 createErrorFromCodeLookup.set(0x177c, () => new NoChangingCollectionDuringMintError());
 createErrorFromNameLookup.set('NoChangingCollectionDuringMint', () => new NoChangingCollectionDuringMintError());
-class CandyCollectionRequiresRetainAuthorityError extends Error {
-    constructor() {
-        super('Retain authority must be true for Candy Machines with a collection set');
-        this.code = 0x177d;
-        this.name = 'CandyCollectionRequiresRetainAuthority';
-        if (typeof Error.captureStackTrace === 'function') {
-            Error.captureStackTrace(this, CandyCollectionRequiresRetainAuthorityError);
-        }
-    }
-}
-exports.CandyCollectionRequiresRetainAuthorityError = CandyCollectionRequiresRetainAuthorityError;
-createErrorFromCodeLookup.set(0x177d, () => new CandyCollectionRequiresRetainAuthorityError());
-createErrorFromNameLookup.set('CandyCollectionRequiresRetainAuthority', () => new CandyCollectionRequiresRetainAuthorityError());
 class ExceededLengthErrorError extends Error {
     constructor() {
         super('Value longer than expected maximum value');
-        this.code = 0x177e;
+        this.code = 0x177d;
         this.name = 'ExceededLengthError';
         if (typeof Error.captureStackTrace === 'function') {
             Error.captureStackTrace(this, ExceededLengthErrorError);
@@ -196,12 +183,12 @@ class ExceededLengthErrorError extends Error {
     }
 }
 exports.ExceededLengthErrorError = ExceededLengthErrorError;
-createErrorFromCodeLookup.set(0x177e, () => new ExceededLengthErrorError());
+createErrorFromCodeLookup.set(0x177d, () => new ExceededLengthErrorError());
 createErrorFromNameLookup.set('ExceededLengthError', () => new ExceededLengthErrorError());
 class MissingConfigLinesSettingsError extends Error {
     constructor() {
         super('Missing config lines settings');
-        this.code = 0x177f;
+        this.code = 0x177e;
         this.name = 'MissingConfigLinesSettings';
         if (typeof Error.captureStackTrace === 'function') {
             Error.captureStackTrace(this, MissingConfigLinesSettingsError);
@@ -209,12 +196,12 @@ class MissingConfigLinesSettingsError extends Error {
     }
 }
 exports.MissingConfigLinesSettingsError = MissingConfigLinesSettingsError;
-createErrorFromCodeLookup.set(0x177f, () => new MissingConfigLinesSettingsError());
+createErrorFromCodeLookup.set(0x177e, () => new MissingConfigLinesSettingsError());
 createErrorFromNameLookup.set('MissingConfigLinesSettings', () => new MissingConfigLinesSettingsError());
 class CannotIncreaseLengthError extends Error {
     constructor() {
         super('Cannot increase the length in config lines settings');
-        this.code = 0x1780;
+        this.code = 0x177f;
         this.name = 'CannotIncreaseLength';
         if (typeof Error.captureStackTrace === 'function') {
             Error.captureStackTrace(this, CannotIncreaseLengthError);
@@ -222,12 +209,12 @@ class CannotIncreaseLengthError extends Error {
     }
 }
 exports.CannotIncreaseLengthError = CannotIncreaseLengthError;
-createErrorFromCodeLookup.set(0x1780, () => new CannotIncreaseLengthError());
+createErrorFromCodeLookup.set(0x177f, () => new CannotIncreaseLengthError());
 createErrorFromNameLookup.set('CannotIncreaseLength', () => new CannotIncreaseLengthError());
 class CannotSwitchFromHiddenSettingsError extends Error {
     constructor() {
         super('Cannot switch from hidden settings');
-        this.code = 0x1781;
+        this.code = 0x1780;
         this.name = 'CannotSwitchFromHiddenSettings';
         if (typeof Error.captureStackTrace === 'function') {
             Error.captureStackTrace(this, CannotSwitchFromHiddenSettingsError);
@@ -235,12 +222,12 @@ class CannotSwitchFromHiddenSettingsError extends Error {
     }
 }
 exports.CannotSwitchFromHiddenSettingsError = CannotSwitchFromHiddenSettingsError;
-createErrorFromCodeLookup.set(0x1781, () => new CannotSwitchFromHiddenSettingsError());
+createErrorFromCodeLookup.set(0x1780, () => new CannotSwitchFromHiddenSettingsError());
 createErrorFromNameLookup.set('CannotSwitchFromHiddenSettings', () => new CannotSwitchFromHiddenSettingsError());
 class CannotChangeSequentialIndexGenerationError extends Error {
     constructor() {
         super('Cannot change sequential index generation after items have begun to be minted');
-        this.code = 0x1782;
+        this.code = 0x1781;
         this.name = 'CannotChangeSequentialIndexGeneration';
         if (typeof Error.captureStackTrace === 'function') {
             Error.captureStackTrace(this, CannotChangeSequentialIndexGenerationError);
@@ -248,12 +235,12 @@ class CannotChangeSequentialIndexGenerationError extends Error {
     }
 }
 exports.CannotChangeSequentialIndexGenerationError = CannotChangeSequentialIndexGenerationError;
-createErrorFromCodeLookup.set(0x1782, () => new CannotChangeSequentialIndexGenerationError());
+createErrorFromCodeLookup.set(0x1781, () => new CannotChangeSequentialIndexGenerationError());
 createErrorFromNameLookup.set('CannotChangeSequentialIndexGeneration', () => new CannotChangeSequentialIndexGenerationError());
 class CollectionKeyMismatchError extends Error {
     constructor() {
         super('Collection public key mismatch');
-        this.code = 0x1783;
+        this.code = 0x1782;
         this.name = 'CollectionKeyMismatch';
         if (typeof Error.captureStackTrace === 'function') {
             Error.captureStackTrace(this, CollectionKeyMismatchError);
@@ -261,25 +248,12 @@ class CollectionKeyMismatchError extends Error {
     }
 }
 exports.CollectionKeyMismatchError = CollectionKeyMismatchError;
-createErrorFromCodeLookup.set(0x1783, () => new CollectionKeyMismatchError());
+createErrorFromCodeLookup.set(0x1782, () => new CollectionKeyMismatchError());
 createErrorFromNameLookup.set('CollectionKeyMismatch', () => new CollectionKeyMismatchError());
-class MissingCollectionAccountsError extends Error {
-    constructor() {
-        super('Missing collection accounts');
-        this.code = 0x1784;
-        this.name = 'MissingCollectionAccounts';
-        if (typeof Error.captureStackTrace === 'function') {
-            Error.captureStackTrace(this, MissingCollectionAccountsError);
-        }
-    }
-}
-exports.MissingCollectionAccountsError = MissingCollectionAccountsError;
-createErrorFromCodeLookup.set(0x1784, () => new MissingCollectionAccountsError());
-createErrorFromNameLookup.set('MissingCollectionAccounts', () => new MissingCollectionAccountsError());
 class CannotChangeUpdateAuthorityError extends Error {
     constructor() {
         super('Cannot change update authority if a collection mint is set');
-        this.code = 0x1785;
+        this.code = 0x1783;
         this.name = 'CannotChangeUpdateAuthority';
         if (typeof Error.captureStackTrace === 'function') {
             Error.captureStackTrace(this, CannotChangeUpdateAuthorityError);
@@ -287,7 +261,7 @@ class CannotChangeUpdateAuthorityError extends Error {
     }
 }
 exports.CannotChangeUpdateAuthorityError = CannotChangeUpdateAuthorityError;
-createErrorFromCodeLookup.set(0x1785, () => new CannotChangeUpdateAuthorityError());
+createErrorFromCodeLookup.set(0x1783, () => new CannotChangeUpdateAuthorityError());
 createErrorFromNameLookup.set('CannotChangeUpdateAuthority', () => new CannotChangeUpdateAuthorityError());
 function errorFromCode(code) {
     const createError = createErrorFromCodeLookup.get(code);

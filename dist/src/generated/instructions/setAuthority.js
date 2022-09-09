@@ -32,9 +32,7 @@ exports.setAuthorityStruct = new beet.BeetArgsStruct([
     ['newAuthority', beetSolana.publicKey],
     ['newUpdateAuthority', beetSolana.publicKey],
 ], 'SetAuthorityInstructionArgs');
-exports.setAuthorityInstructionDiscriminator = [
-    133, 250, 37, 21, 110, 163, 26, 121,
-];
+exports.setAuthorityInstructionDiscriminator = [133, 250, 37, 21, 110, 163, 26, 121];
 function createSetAuthorityInstruction(accounts, args, programId = new web3.PublicKey('cndy3CZK71ZHMp9ddpq5NVvQDx33o6cCYDf4JBAWCk7')) {
     const [data] = exports.setAuthorityStruct.serialize({
         instructionDiscriminator: exports.setAuthorityInstructionDiscriminator,

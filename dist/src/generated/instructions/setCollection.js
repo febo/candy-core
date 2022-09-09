@@ -23,17 +23,19 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createAddCollectionInstruction = exports.addCollectionInstructionDiscriminator = exports.addCollectionStruct = void 0;
+exports.createSetCollectionInstruction = exports.setCollectionInstructionDiscriminator = exports.setCollectionStruct = void 0;
 const beet = __importStar(require("@metaplex-foundation/beet"));
 const web3 = __importStar(require("@solana/web3.js"));
-exports.addCollectionStruct = new beet.BeetArgsStruct([['instructionDiscriminator', beet.uniformFixedSizeArray(beet.u8, 8)]], 'AddCollectionInstructionArgs');
-exports.addCollectionInstructionDiscriminator = [
-    79, 172, 225, 142, 219, 192, 171, 80,
-];
-function createAddCollectionInstruction(accounts, programId = new web3.PublicKey('cndy3CZK71ZHMp9ddpq5NVvQDx33o6cCYDf4JBAWCk7')) {
+exports.setCollectionStruct = new beet.BeetArgsStruct([
+    ['instructionDiscriminator', beet.uniformFixedSizeArray(beet.u8, 8)],
+    ['authorityPdaBump', beet.u8],
+], 'SetCollectionInstructionArgs');
+exports.setCollectionInstructionDiscriminator = [192, 254, 206, 76, 168, 182, 59, 223];
+function createSetCollectionInstruction(accounts, args, programId = new web3.PublicKey('cndy3CZK71ZHMp9ddpq5NVvQDx33o6cCYDf4JBAWCk7')) {
     var _a, _b;
-    const [data] = exports.addCollectionStruct.serialize({
-        instructionDiscriminator: exports.addCollectionInstructionDiscriminator,
+    const [data] = exports.setCollectionStruct.serialize({
+        instructionDiscriminator: exports.setCollectionInstructionDiscriminator,
+        ...args,
     });
     const keys = [
         {
@@ -47,8 +49,8 @@ function createAddCollectionInstruction(accounts, programId = new web3.PublicKey
             isSigner: true,
         },
         {
-            pubkey: accounts.updateAuthority,
-            isWritable: false,
+            pubkey: accounts.authorityPda,
+            isWritable: true,
             isSigner: false,
         },
         {
@@ -57,7 +59,7 @@ function createAddCollectionInstruction(accounts, programId = new web3.PublicKey
             isSigner: true,
         },
         {
-            pubkey: accounts.collectionAuthority,
+            pubkey: accounts.collectionMint,
             isWritable: false,
             isSigner: false,
         },
@@ -67,17 +69,32 @@ function createAddCollectionInstruction(accounts, programId = new web3.PublicKey
             isSigner: false,
         },
         {
-            pubkey: accounts.collectionMint,
-            isWritable: false,
-            isSigner: false,
-        },
-        {
-            pubkey: accounts.collectionEdition,
-            isWritable: false,
-            isSigner: false,
-        },
-        {
             pubkey: accounts.collectionAuthorityRecord,
+            isWritable: true,
+            isSigner: false,
+        },
+        {
+            pubkey: accounts.newCollectionUpdateAuthority,
+            isWritable: false,
+            isSigner: true,
+        },
+        {
+            pubkey: accounts.newCollectionMetadata,
+            isWritable: false,
+            isSigner: false,
+        },
+        {
+            pubkey: accounts.newCollectionMint,
+            isWritable: false,
+            isSigner: false,
+        },
+        {
+            pubkey: accounts.newCollectionMasterEdition,
+            isWritable: false,
+            isSigner: false,
+        },
+        {
+            pubkey: accounts.newCollectionAuthorityRecord,
             isWritable: true,
             isSigner: false,
         },
@@ -104,5 +121,5 @@ function createAddCollectionInstruction(accounts, programId = new web3.PublicKey
     });
     return ix;
 }
-exports.createAddCollectionInstruction = createAddCollectionInstruction;
-//# sourceMappingURL=addCollection.js.map
+exports.createSetCollectionInstruction = createSetCollectionInstruction;
+//# sourceMappingURL=setCollection.js.map
