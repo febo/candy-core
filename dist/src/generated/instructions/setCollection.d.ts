@@ -1,9 +1,6 @@
 import * as beet from '@metaplex-foundation/beet';
 import * as web3 from '@solana/web3.js';
-export declare type SetCollectionInstructionArgs = {
-    authorityPdaBump: number;
-};
-export declare const setCollectionStruct: beet.BeetArgsStruct<SetCollectionInstructionArgs & {
+export declare const setCollectionStruct: beet.BeetArgsStruct<{
     instructionDiscriminator: number[];
 }>;
 export declare type SetCollectionInstructionAccounts = {
@@ -24,4 +21,4 @@ export declare type SetCollectionInstructionAccounts = {
     rent?: web3.PublicKey;
 };
 export declare const setCollectionInstructionDiscriminator: number[];
-export declare function createSetCollectionInstruction(accounts: SetCollectionInstructionAccounts, args: SetCollectionInstructionArgs, programId?: web3.PublicKey): web3.TransactionInstruction;
+export declare function createSetCollectionInstruction(accounts: SetCollectionInstructionAccounts, programId?: web3.PublicKey): web3.TransactionInstruction;

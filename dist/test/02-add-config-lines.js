@@ -7,7 +7,7 @@ const tape_1 = __importDefault(require("tape"));
 const setup_1 = require("./setup/");
 const init = new setup_1.InitTransactions();
 (0, setup_1.killStuckProcess)();
-(0, tape_1.default)('add_config_lines', async (t) => {
+tape_1.default.only('add_config_lines', async (t) => {
     const { fstTxHandler, payerPair, connection } = await init.payer();
     const items = 100;
     const data = {

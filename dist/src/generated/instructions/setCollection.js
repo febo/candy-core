@@ -26,16 +26,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.createSetCollectionInstruction = exports.setCollectionInstructionDiscriminator = exports.setCollectionStruct = void 0;
 const beet = __importStar(require("@metaplex-foundation/beet"));
 const web3 = __importStar(require("@solana/web3.js"));
-exports.setCollectionStruct = new beet.BeetArgsStruct([
-    ['instructionDiscriminator', beet.uniformFixedSizeArray(beet.u8, 8)],
-    ['authorityPdaBump', beet.u8],
-], 'SetCollectionInstructionArgs');
+exports.setCollectionStruct = new beet.BeetArgsStruct([['instructionDiscriminator', beet.uniformFixedSizeArray(beet.u8, 8)]], 'SetCollectionInstructionArgs');
 exports.setCollectionInstructionDiscriminator = [192, 254, 206, 76, 168, 182, 59, 223];
-function createSetCollectionInstruction(accounts, args, programId = new web3.PublicKey('cndy3CZK71ZHMp9ddpq5NVvQDx33o6cCYDf4JBAWCk7')) {
+function createSetCollectionInstruction(accounts, programId = new web3.PublicKey('cndy3CZK71ZHMp9ddpq5NVvQDx33o6cCYDf4JBAWCk7')) {
     var _a, _b;
     const [data] = exports.setCollectionStruct.serialize({
         instructionDiscriminator: exports.setCollectionInstructionDiscriminator,
-        ...args,
     });
     const keys = [
         {
@@ -75,7 +71,7 @@ function createSetCollectionInstruction(accounts, args, programId = new web3.Pub
         },
         {
             pubkey: accounts.newCollectionUpdateAuthority,
-            isWritable: false,
+            isWritable: true,
             isSigner: true,
         },
         {

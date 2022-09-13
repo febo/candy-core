@@ -81,7 +81,7 @@ function createInitializeInstruction(accounts, args, programId = new web3.Public
         },
         {
             pubkey: accounts.collectionUpdateAuthority,
-            isWritable: false,
+            isWritable: true,
             isSigner: true,
         },
         {
