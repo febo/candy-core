@@ -11,7 +11,6 @@ export declare type InitializeInstructionAccounts = {
     candyMachine: web3.PublicKey;
     authorityPda: web3.PublicKey;
     authority: web3.PublicKey;
-    mintAuthority: web3.PublicKey;
     payer: web3.PublicKey;
     collectionMetadata: web3.PublicKey;
     collectionMint: web3.PublicKey;

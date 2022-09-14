@@ -23,19 +23,14 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createSetAuthorityInstruction = exports.setAuthorityInstructionDiscriminator = exports.setAuthorityStruct = void 0;
-const web3 = __importStar(require("@solana/web3.js"));
-const beetSolana = __importStar(require("@metaplex-foundation/beet-solana"));
+exports.createSetMintAuthorityInstruction = exports.setMintAuthorityInstructionDiscriminator = exports.setMintAuthorityStruct = void 0;
 const beet = __importStar(require("@metaplex-foundation/beet"));
-exports.setAuthorityStruct = new beet.BeetArgsStruct([
-    ['instructionDiscriminator', beet.uniformFixedSizeArray(beet.u8, 8)],
-    ['newAuthority', beetSolana.publicKey],
-], 'SetAuthorityInstructionArgs');
-exports.setAuthorityInstructionDiscriminator = [133, 250, 37, 21, 110, 163, 26, 121];
-function createSetAuthorityInstruction(accounts, args, programId = new web3.PublicKey('cndy3CZK71ZHMp9ddpq5NVvQDx33o6cCYDf4JBAWCk7')) {
-    const [data] = exports.setAuthorityStruct.serialize({
-        instructionDiscriminator: exports.setAuthorityInstructionDiscriminator,
-        ...args,
+const web3 = __importStar(require("@solana/web3.js"));
+exports.setMintAuthorityStruct = new beet.BeetArgsStruct([['instructionDiscriminator', beet.uniformFixedSizeArray(beet.u8, 8)]], 'SetMintAuthorityInstructionArgs');
+exports.setMintAuthorityInstructionDiscriminator = [67, 127, 155, 187, 100, 174, 103, 121];
+function createSetMintAuthorityInstruction(accounts, programId = new web3.PublicKey('cndy3CZK71ZHMp9ddpq5NVvQDx33o6cCYDf4JBAWCk7')) {
+    const [data] = exports.setMintAuthorityStruct.serialize({
+        instructionDiscriminator: exports.setMintAuthorityInstructionDiscriminator,
     });
     const keys = [
         {
@@ -48,6 +43,11 @@ function createSetAuthorityInstruction(accounts, args, programId = new web3.Publ
             isWritable: false,
             isSigner: true,
         },
+        {
+            pubkey: accounts.mintAuthority,
+            isWritable: false,
+            isSigner: true,
+        },
     ];
     const ix = new web3.TransactionInstruction({
         programId,
@@ -56,5 +56,5 @@ function createSetAuthorityInstruction(accounts, args, programId = new web3.Publ
     });
     return ix;
 }
-exports.createSetAuthorityInstruction = createSetAuthorityInstruction;
-//# sourceMappingURL=setAuthority.js.map
+exports.createSetMintAuthorityInstruction = createSetMintAuthorityInstruction;
+//# sourceMappingURL=setMintAuthority.js.map

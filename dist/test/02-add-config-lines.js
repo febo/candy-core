@@ -7,7 +7,7 @@ const tape_1 = __importDefault(require("tape"));
 const setup_1 = require("./setup/");
 const init = new setup_1.InitTransactions();
 (0, setup_1.killStuckProcess)();
-tape_1.default.only('add_config_lines', async (t) => {
+(0, tape_1.default)('add_config_lines', async (t) => {
     const { fstTxHandler, payerPair, connection } = await init.payer();
     const items = 100;
     const data = {
@@ -32,7 +32,7 @@ tape_1.default.only('add_config_lines', async (t) => {
         },
         hiddenSettings: null,
     };
-    const { tx: transaction, candyMachine: address } = await init.create(t, payerPair, data, fstTxHandler, connection);
+    const { tx: transaction, candyMachine: address } = await init.initialize(t, payerPair, data, fstTxHandler, connection);
     await transaction.assertSuccess(t);
     const lines = [];
     for (let i = 0; i < items; i++) {
@@ -71,7 +71,7 @@ tape_1.default.only('add_config_lines', async (t) => {
             hash: Buffer.from('74bac30d82a0baa41dd2bee4b41bbc36').toJSON().data,
         },
     };
-    const { tx: transaction, candyMachine: address } = await init.create(t, payerPair, data, fstTxHandler, connection);
+    const { tx: transaction, candyMachine: address } = await init.initialize(t, payerPair, data, fstTxHandler, connection);
     await transaction.assertSuccess(t);
     const lines = [];
     for (let i = 0; i < items; i++) {

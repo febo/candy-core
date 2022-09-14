@@ -74,7 +74,7 @@ class InitTransactions {
             minterPair,
         };
     }
-    async create(t, payer, data, handler, connection) {
+    async initialize(t, payer, data, handler, connection) {
         const metaplex = js_1.Metaplex.make(connection).use((0, js_1.keypairIdentity)(payer));
         const { nft: collection } = await metaplex
             .nfts()
@@ -96,7 +96,6 @@ class InitTransactions {
         const accounts = {
             authorityPda,
             collectionUpdateAuthority: collection.updateAuthorityAddress,
-            mintAuthority: payer.publicKey,
             candyMachine: candyMachine.publicKey,
             authority: payer.publicKey,
             payer: payer.publicKey,

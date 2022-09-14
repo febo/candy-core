@@ -55,11 +55,6 @@ function createInitializeInstruction(accounts, args, programId = new web3.Public
             isSigner: false,
         },
         {
-            pubkey: accounts.mintAuthority,
-            isWritable: false,
-            isSigner: false,
-        },
-        {
             pubkey: accounts.payer,
             isWritable: false,
             isSigner: true,

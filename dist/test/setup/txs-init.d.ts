@@ -25,7 +25,7 @@ export declare class InitTransactions {
         minter: PublicKey;
         minterPair: Keypair;
     }>;
-    create(t: Test, payer: Keypair, data: program.CandyMachineData, handler: PayerTransactionHandler, connection: Connection): Promise<{
+    initialize(t: Test, payer: Keypair, data: program.CandyMachineData, handler: PayerTransactionHandler, connection: Connection): Promise<{
         tx: ConfirmedTransactionAssertablePromise;
         candyMachine: PublicKey;
     }>;

@@ -32,7 +32,7 @@ tape_1.default.only('mint (authority)', async (t) => {
         },
         hiddenSettings: null,
     };
-    const { tx: transaction, candyMachine: address } = await API.create(t, payerPair, data, fstTxHandler, connection);
+    const { tx: transaction, candyMachine: address } = await API.initialize(t, payerPair, data, fstTxHandler, connection);
     await transaction.assertSuccess(t);
     const lines = [];
     for (let i = 0; i < items; i++) {
@@ -75,7 +75,7 @@ tape_1.default.only('mint (authority)', async (t) => {
         },
         hiddenSettings: null,
     };
-    const { tx: transaction, candyMachine: address } = await API.create(t, payerPair, data, fstTxHandler, connection);
+    const { tx: transaction, candyMachine: address } = await API.initialize(t, payerPair, data, fstTxHandler, connection);
     await transaction.assertSuccess(t);
     const lines = [];
     for (let i = 0; i < items; i++) {

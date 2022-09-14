@@ -2,7 +2,6 @@ import * as web3 from '@solana/web3.js';
 import * as beet from '@metaplex-foundation/beet';
 export declare type SetAuthorityInstructionArgs = {
     newAuthority: web3.PublicKey;
-    newMintAuthority: web3.PublicKey;
 };
 export declare const setAuthorityStruct: beet.BeetArgsStruct<SetAuthorityInstructionArgs & {
     instructionDiscriminator: number[];

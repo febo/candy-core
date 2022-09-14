@@ -32,7 +32,7 @@ const init = new setup_1.InitTransactions();
         },
         hiddenSettings: null,
     };
-    const { tx: transaction, candyMachine: address } = await init.create(t, payerPair, data, fstTxHandler, connection);
+    const { tx: transaction, candyMachine: address } = await init.initialize(t, payerPair, data, fstTxHandler, connection);
     await transaction.assertSuccess(t);
     let accountInfo = await connection.getAccountInfo(payerPair.publicKey);
     const balance = accountInfo.lamports;

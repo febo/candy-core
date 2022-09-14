@@ -35,7 +35,7 @@ const init = new setup_1.InitTransactions();
         },
         hiddenSettings: null,
     };
-    const { tx: transaction, candyMachine: address } = await init.create(t, payerPair, data, fstTxHandler, connection);
+    const { tx: transaction, candyMachine: address } = await init.initialize(t, payerPair, data, fstTxHandler, connection);
     await transaction.assertSuccess(t);
     const candyMachine = await generated_1.CandyMachine.fromAccountAddress(connection, address);
     (0, spok_1.default)(t, candyMachine.data, {
@@ -93,7 +93,7 @@ const init = new setup_1.InitTransactions();
             hash: Buffer.from('74bac30d82a0baa41dd2bee4b41bbc36').toJSON().data,
         },
     };
-    const { tx: transaction, candyMachine: address } = await init.create(t, payerPair, data, fstTxHandler, connection);
+    const { tx: transaction, candyMachine: address } = await init.initialize(t, payerPair, data, fstTxHandler, connection);
     await transaction.assertSuccess(t);
     const candyMachine = await generated_1.CandyMachine.fromAccountAddress(connection, address);
     (0, spok_1.default)(t, candyMachine.data, {
