@@ -29,7 +29,7 @@ const beet = __importStar(require("@metaplex-foundation/beet"));
 const web3 = __importStar(require("@solana/web3.js"));
 exports.mintStruct = new beet.BeetArgsStruct([['instructionDiscriminator', beet.uniformFixedSizeArray(beet.u8, 8)]], 'MintInstructionArgs');
 exports.mintInstructionDiscriminator = [51, 57, 225, 47, 182, 146, 137, 166];
-function createMintInstruction(accounts, programId = new web3.PublicKey('cndy3CZK71ZHMp9ddpq5NVvQDx33o6cCYDf4JBAWCk7')) {
+function createMintInstruction(accounts, programId = new web3.PublicKey('CndyV3LdqHUfDLmE5naZjVN8rBZz4tqhdefbAnjHG3JR')) {
     var _a, _b, _c;
     const [data] = exports.mintStruct.serialize({
         instructionDiscriminator: exports.mintInstructionDiscriminator,

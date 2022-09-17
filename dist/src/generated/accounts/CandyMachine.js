@@ -51,7 +51,7 @@ class CandyMachine {
         }
         return CandyMachine.fromAccountInfo(accountInfo, 0)[0];
     }
-    static gpaBuilder(programId = new web3.PublicKey('cndy3CZK71ZHMp9ddpq5NVvQDx33o6cCYDf4JBAWCk7')) {
+    static gpaBuilder(programId = new web3.PublicKey('CndyV3LdqHUfDLmE5naZjVN8rBZz4tqhdefbAnjHG3JR')) {
         return beetSolana.GpaBuilder.fromStruct(programId, exports.candyMachineBeet);
     }
     static deserialize(buf, offset = 0) {

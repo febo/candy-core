@@ -33,7 +33,7 @@ exports.addConfigLinesStruct = new beet.FixableBeetArgsStruct([
     ['configLines', beet.array(ConfigLine_1.configLineBeet)],
 ], 'AddConfigLinesInstructionArgs');
 exports.addConfigLinesInstructionDiscriminator = [223, 50, 224, 227, 151, 8, 115, 106];
-function createAddConfigLinesInstruction(accounts, args, programId = new web3.PublicKey('cndy3CZK71ZHMp9ddpq5NVvQDx33o6cCYDf4JBAWCk7')) {
+function createAddConfigLinesInstruction(accounts, args, programId = new web3.PublicKey('CndyV3LdqHUfDLmE5naZjVN8rBZz4tqhdefbAnjHG3JR')) {
     const [data] = exports.addConfigLinesStruct.serialize({
         instructionDiscriminator: exports.addConfigLinesInstructionDiscriminator,
         ...args,

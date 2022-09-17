@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.errorFromName = exports.errorFromCode = exports.CannotChangeUpdateAuthorityError = exports.CollectionKeyMismatchError = exports.CannotChangeSequentialIndexGenerationError = exports.CannotSwitchFromHiddenSettingsError = exports.CannotIncreaseLengthError = exports.MissingConfigLinesSettingsError = exports.ExceededLengthErrorError = exports.NoChangingCollectionDuringMintError = exports.MetadataAccountMustBeEmptyError = exports.IncorrectCollectionAuthorityError = exports.CannotSwitchToHiddenSettingsError = exports.CannotChangeNumberOfLinesError = exports.HiddenSettingsDoNotHaveConfigLinesError = exports.CandyMachineEmptyError = exports.TooManyCreatorsError = exports.NumericalOverflowErrorError = exports.IndexGreaterThanLengthError = exports.MintMismatchError = exports.UninitializedError = exports.IncorrectOwnerError = void 0;
+exports.errorFromName = exports.errorFromCode = exports.CouldNotRetrieveConfigLineDataError = exports.CollectionKeyMismatchError = exports.CannotChangeSequentialIndexGenerationError = exports.CannotSwitchFromHiddenSettingsError = exports.CannotIncreaseLengthError = exports.MissingConfigLinesSettingsError = exports.ExceededLengthErrorError = exports.NoChangingCollectionDuringMintError = exports.MetadataAccountMustBeEmptyError = exports.IncorrectCollectionAuthorityError = exports.CannotSwitchToHiddenSettingsError = exports.CannotChangeNumberOfLinesError = exports.HiddenSettingsDoNotHaveConfigLinesError = exports.CandyMachineEmptyError = exports.TooManyCreatorsError = exports.NumericalOverflowErrorError = exports.IndexGreaterThanLengthError = exports.MintMismatchError = exports.UninitializedError = exports.IncorrectOwnerError = void 0;
 const createErrorFromCodeLookup = new Map();
 const createErrorFromNameLookup = new Map();
 class IncorrectOwnerError extends Error {
@@ -250,19 +250,19 @@ class CollectionKeyMismatchError extends Error {
 exports.CollectionKeyMismatchError = CollectionKeyMismatchError;
 createErrorFromCodeLookup.set(0x1782, () => new CollectionKeyMismatchError());
 createErrorFromNameLookup.set('CollectionKeyMismatch', () => new CollectionKeyMismatchError());
-class CannotChangeUpdateAuthorityError extends Error {
+class CouldNotRetrieveConfigLineDataError extends Error {
     constructor() {
-        super('Cannot change update authority if a collection mint is set');
+        super('Could not retrive config line data');
         this.code = 0x1783;
-        this.name = 'CannotChangeUpdateAuthority';
+        this.name = 'CouldNotRetrieveConfigLineData';
         if (typeof Error.captureStackTrace === 'function') {
-            Error.captureStackTrace(this, CannotChangeUpdateAuthorityError);
+            Error.captureStackTrace(this, CouldNotRetrieveConfigLineDataError);
         }
     }
 }
-exports.CannotChangeUpdateAuthorityError = CannotChangeUpdateAuthorityError;
-createErrorFromCodeLookup.set(0x1783, () => new CannotChangeUpdateAuthorityError());
-createErrorFromNameLookup.set('CannotChangeUpdateAuthority', () => new CannotChangeUpdateAuthorityError());
+exports.CouldNotRetrieveConfigLineDataError = CouldNotRetrieveConfigLineDataError;
+createErrorFromCodeLookup.set(0x1783, () => new CouldNotRetrieveConfigLineDataError());
+createErrorFromNameLookup.set('CouldNotRetrieveConfigLineData', () => new CouldNotRetrieveConfigLineDataError());
 function errorFromCode(code) {
     const createError = createErrorFromCodeLookup.get(code);
     return createError != null ? createError() : null;

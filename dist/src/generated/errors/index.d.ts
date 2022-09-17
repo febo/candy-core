@@ -97,7 +97,7 @@ export declare class CollectionKeyMismatchError extends Error {
     readonly name: string;
     constructor();
 }
-export declare class CannotChangeUpdateAuthorityError extends Error {
+export declare class CouldNotRetrieveConfigLineDataError extends Error {
     readonly code: number;
     readonly name: string;
     constructor();

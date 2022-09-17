@@ -28,7 +28,7 @@ const beet = __importStar(require("@metaplex-foundation/beet"));
 const web3 = __importStar(require("@solana/web3.js"));
 exports.setMintAuthorityStruct = new beet.BeetArgsStruct([['instructionDiscriminator', beet.uniformFixedSizeArray(beet.u8, 8)]], 'SetMintAuthorityInstructionArgs');
 exports.setMintAuthorityInstructionDiscriminator = [67, 127, 155, 187, 100, 174, 103, 121];
-function createSetMintAuthorityInstruction(accounts, programId = new web3.PublicKey('cndy3CZK71ZHMp9ddpq5NVvQDx33o6cCYDf4JBAWCk7')) {
+function createSetMintAuthorityInstruction(accounts, programId = new web3.PublicKey('CndyV3LdqHUfDLmE5naZjVN8rBZz4tqhdefbAnjHG3JR')) {
     const [data] = exports.setMintAuthorityStruct.serialize({
         instructionDiscriminator: exports.setMintAuthorityInstructionDiscriminator,
     });

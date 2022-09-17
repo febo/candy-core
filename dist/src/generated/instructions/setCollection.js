@@ -28,7 +28,7 @@ const beet = __importStar(require("@metaplex-foundation/beet"));
 const web3 = __importStar(require("@solana/web3.js"));
 exports.setCollectionStruct = new beet.BeetArgsStruct([['instructionDiscriminator', beet.uniformFixedSizeArray(beet.u8, 8)]], 'SetCollectionInstructionArgs');
 exports.setCollectionInstructionDiscriminator = [192, 254, 206, 76, 168, 182, 59, 223];
-function createSetCollectionInstruction(accounts, programId = new web3.PublicKey('cndy3CZK71ZHMp9ddpq5NVvQDx33o6cCYDf4JBAWCk7')) {
+function createSetCollectionInstruction(accounts, programId = new web3.PublicKey('CndyV3LdqHUfDLmE5naZjVN8rBZz4tqhdefbAnjHG3JR')) {
     var _a, _b;
     const [data] = exports.setCollectionStruct.serialize({
         instructionDiscriminator: exports.setCollectionInstructionDiscriminator,
