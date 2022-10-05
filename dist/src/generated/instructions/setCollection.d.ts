@@ -18,7 +18,6 @@ export declare type SetCollectionInstructionAccounts = {
     newCollectionAuthorityRecord: web3.PublicKey;
     tokenMetadataProgram: web3.PublicKey;
     systemProgram?: web3.PublicKey;
-    rent?: web3.PublicKey;
 };
 export declare const setCollectionInstructionDiscriminator: number[];
 export declare function createSetCollectionInstruction(accounts: SetCollectionInstructionAccounts, programId?: web3.PublicKey): web3.TransactionInstruction;

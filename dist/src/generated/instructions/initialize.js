@@ -33,7 +33,7 @@ exports.initializeStruct = new beet.FixableBeetArgsStruct([
 ], 'InitializeInstructionArgs');
 exports.initializeInstructionDiscriminator = [175, 175, 109, 31, 13, 152, 155, 237];
 function createInitializeInstruction(accounts, args, programId = new web3.PublicKey('CndyV3LdqHUfDLmE5naZjVN8rBZz4tqhdefbAnjHG3JR')) {
-    var _a, _b;
+    var _a;
     const [data] = exports.initializeStruct.serialize({
         instructionDiscriminator: exports.initializeInstructionDiscriminator,
         ...args,
@@ -91,11 +91,6 @@ function createInitializeInstruction(accounts, args, programId = new web3.Public
         },
         {
             pubkey: (_a = accounts.systemProgram) !== null && _a !== void 0 ? _a : web3.SystemProgram.programId,
-            isWritable: false,
-            isSigner: false,
-        },
-        {
-            pubkey: (_b = accounts.rent) !== null && _b !== void 0 ? _b : web3.SYSVAR_RENT_PUBKEY,
             isWritable: false,
             isSigner: false,
         },

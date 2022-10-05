@@ -102,6 +102,11 @@ export declare class CouldNotRetrieveConfigLineDataError extends Error {
     readonly name: string;
     constructor();
 }
+export declare class NotFullyLoadedError extends Error {
+    readonly code: number;
+    readonly name: string;
+    constructor();
+}
 export declare function errorFromCode(code: number): MaybeErrorWithCode;
 export declare function errorFromName(name: string): MaybeErrorWithCode;
 export {};

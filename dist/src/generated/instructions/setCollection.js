@@ -29,7 +29,7 @@ const web3 = __importStar(require("@solana/web3.js"));
 exports.setCollectionStruct = new beet.BeetArgsStruct([['instructionDiscriminator', beet.uniformFixedSizeArray(beet.u8, 8)]], 'SetCollectionInstructionArgs');
 exports.setCollectionInstructionDiscriminator = [192, 254, 206, 76, 168, 182, 59, 223];
 function createSetCollectionInstruction(accounts, programId = new web3.PublicKey('CndyV3LdqHUfDLmE5naZjVN8rBZz4tqhdefbAnjHG3JR')) {
-    var _a, _b;
+    var _a;
     const [data] = exports.setCollectionStruct.serialize({
         instructionDiscriminator: exports.setCollectionInstructionDiscriminator,
     });
@@ -101,11 +101,6 @@ function createSetCollectionInstruction(accounts, programId = new web3.PublicKey
         },
         {
             pubkey: (_a = accounts.systemProgram) !== null && _a !== void 0 ? _a : web3.SystemProgram.programId,
-            isWritable: false,
-            isSigner: false,
-        },
-        {
-            pubkey: (_b = accounts.rent) !== null && _b !== void 0 ? _b : web3.SYSVAR_RENT_PUBKEY,
             isWritable: false,
             isSigner: false,
         },

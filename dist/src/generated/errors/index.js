@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.errorFromName = exports.errorFromCode = exports.CouldNotRetrieveConfigLineDataError = exports.CollectionKeyMismatchError = exports.CannotChangeSequentialIndexGenerationError = exports.CannotSwitchFromHiddenSettingsError = exports.CannotIncreaseLengthError = exports.MissingConfigLinesSettingsError = exports.ExceededLengthErrorError = exports.NoChangingCollectionDuringMintError = exports.MetadataAccountMustBeEmptyError = exports.IncorrectCollectionAuthorityError = exports.CannotSwitchToHiddenSettingsError = exports.CannotChangeNumberOfLinesError = exports.HiddenSettingsDoNotHaveConfigLinesError = exports.CandyMachineEmptyError = exports.TooManyCreatorsError = exports.NumericalOverflowErrorError = exports.IndexGreaterThanLengthError = exports.MintMismatchError = exports.UninitializedError = exports.IncorrectOwnerError = void 0;
+exports.errorFromName = exports.errorFromCode = exports.NotFullyLoadedError = exports.CouldNotRetrieveConfigLineDataError = exports.CollectionKeyMismatchError = exports.CannotChangeSequentialIndexGenerationError = exports.CannotSwitchFromHiddenSettingsError = exports.CannotIncreaseLengthError = exports.MissingConfigLinesSettingsError = exports.ExceededLengthErrorError = exports.NoChangingCollectionDuringMintError = exports.MetadataAccountMustBeEmptyError = exports.IncorrectCollectionAuthorityError = exports.CannotSwitchToHiddenSettingsError = exports.CannotChangeNumberOfLinesError = exports.HiddenSettingsDoNotHaveConfigLinesError = exports.CandyMachineEmptyError = exports.TooManyCreatorsError = exports.NumericalOverflowErrorError = exports.IndexGreaterThanLengthError = exports.MintMismatchError = exports.UninitializedError = exports.IncorrectOwnerError = void 0;
 const createErrorFromCodeLookup = new Map();
 const createErrorFromNameLookup = new Map();
 class IncorrectOwnerError extends Error {
@@ -263,6 +263,19 @@ class CouldNotRetrieveConfigLineDataError extends Error {
 exports.CouldNotRetrieveConfigLineDataError = CouldNotRetrieveConfigLineDataError;
 createErrorFromCodeLookup.set(0x1783, () => new CouldNotRetrieveConfigLineDataError());
 createErrorFromNameLookup.set('CouldNotRetrieveConfigLineData', () => new CouldNotRetrieveConfigLineDataError());
+class NotFullyLoadedError extends Error {
+    constructor() {
+        super('Not all config lines were added to the candy machine');
+        this.code = 0x1784;
+        this.name = 'NotFullyLoaded';
+        if (typeof Error.captureStackTrace === 'function') {
+            Error.captureStackTrace(this, NotFullyLoadedError);
+        }
+    }
+}
+exports.NotFullyLoadedError = NotFullyLoadedError;
+createErrorFromCodeLookup.set(0x1784, () => new NotFullyLoadedError());
+createErrorFromNameLookup.set('NotFullyLoaded', () => new NotFullyLoadedError());
 function errorFromCode(code) {
     const createError = createErrorFromCodeLookup.get(code);
     return createError != null ? createError() : null;

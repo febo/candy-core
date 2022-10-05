@@ -20,7 +20,6 @@ export declare type MintInstructionAccounts = {
     tokenMetadataProgram: web3.PublicKey;
     tokenProgram?: web3.PublicKey;
     systemProgram?: web3.PublicKey;
-    rent?: web3.PublicKey;
     recentSlothashes: web3.PublicKey;
 };
 export declare const mintInstructionDiscriminator: number[];

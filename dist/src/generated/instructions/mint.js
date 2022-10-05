@@ -30,7 +30,7 @@ const web3 = __importStar(require("@solana/web3.js"));
 exports.mintStruct = new beet.BeetArgsStruct([['instructionDiscriminator', beet.uniformFixedSizeArray(beet.u8, 8)]], 'MintInstructionArgs');
 exports.mintInstructionDiscriminator = [51, 57, 225, 47, 182, 146, 137, 166];
 function createMintInstruction(accounts, programId = new web3.PublicKey('CndyV3LdqHUfDLmE5naZjVN8rBZz4tqhdefbAnjHG3JR')) {
-    var _a, _b, _c;
+    var _a, _b;
     const [data] = exports.mintStruct.serialize({
         instructionDiscriminator: exports.mintInstructionDiscriminator,
     });
@@ -112,11 +112,6 @@ function createMintInstruction(accounts, programId = new web3.PublicKey('CndyV3L
         },
         {
             pubkey: (_b = accounts.systemProgram) !== null && _b !== void 0 ? _b : web3.SystemProgram.programId,
-            isWritable: false,
-            isSigner: false,
-        },
-        {
-            pubkey: (_c = accounts.rent) !== null && _c !== void 0 ? _c : web3.SYSVAR_RENT_PUBKEY,
             isWritable: false,
             isSigner: false,
         },
